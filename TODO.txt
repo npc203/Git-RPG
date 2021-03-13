@@ -14,3 +14,5 @@
 
 #database
 user = [lvl,folder path]
+
+lvl = {}

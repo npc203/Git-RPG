@@ -14,11 +14,7 @@ else:
     print("Git not found! Kindly install before starting the game")
     exit()
 
-levels =(
-        "The Beginning",#Setting up/init Repo, setting up credentials and committing
-        "The Remote Gateway",#pushing remote and push,pull
-        "The Parallel Universes" #branching,merging,resolve conflicts
-        )
+
 slow("Welcome to the git world, Start/Continue your git adventures!\n",160)
 user = utils.load()
 
