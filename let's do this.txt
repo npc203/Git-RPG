@@ -1,0 +1,18 @@
+## Inspiration
+I've been relying on git and github by a LOT lately, familiarizing with commands and it's flags. This always ends me up searching in stackoverflow. So in-order to reinforce my knowledge and to make my life a little simpler, I attempted to make this app.
+
+## What it does
+This is a simple command line game, that relies on executing the correct git commands to progress further.It has multiple ways to solve a problem and hence helps to get a hang of the commands and makes version control easier to handle.
+
+## How I built it
+Simple basic python and a few stylish ASCII arts. A few helper and pip libraries as well.
+
+## Challenges I ran into
+- Cross platform support
+- Design of the levels so that the user doesn't soft lock himself into a level
+
+## What we learned
+- More python and UI automation.
+
+## What's next for Git RPG
+- More levels, More complex strategies, multiple endings.

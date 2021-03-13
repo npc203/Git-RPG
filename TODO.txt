@@ -1,0 +1,16 @@
+# All cmds:
+
+- git init
+- git status
+- git commit -m "something"
+
+
+
+
+# Level names:
+
+- 
+
+
+#database
+user = [lvl,folder path]
