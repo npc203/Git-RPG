@@ -2,8 +2,10 @@ import shutil
 import time, random
 import subprocess, os
 import webbrowser, shlex
+from collections import namedtuple
 
 base = os.path.dirname(os.path.realpath(__file__))
+response = namedtuple("Response", "status increments kwargs")
 
 
 def slow(t, speed=130, end="\n"):

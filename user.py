@@ -42,5 +42,9 @@ class User:
         return res
 
     def get(self, item):
-        return self.cursor.execute(f"select {item} from Users where id=1").fetchone()[0]
+        res = self.cursor.execute(f"select {item} from Users where id=1").fetchone()
+        if len(res) > 1:
+            return res
+        else:
+            return res[0]
 
