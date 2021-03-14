@@ -12,7 +12,8 @@ class Level(type):
 
 
 class manager:
-    def __init__(self, lvl, sublvl):
+    def __init__(self, lvl, sublvl, user):
+        self.user = user
         self.lvl = lvl
         self.sublvl = sublvl
         self.lvlnames = None
@@ -30,7 +31,7 @@ class manager:
 
     def start(self):
         self.repopulate(self.lvl - 1)
-        show("intro")
+        show("intro", "green")
         tmp = tuple(level_list.keys())
         for ind in range(len(tmp)):
             print(f" {ind + 1} ." if ind < self.lvl else " \N{LOCK}", tmp[ind])
@@ -62,6 +63,9 @@ class manager:
                 out = run(inp)
                 print("\n>>> " + out)
                 return self.designate(inp, out)
+        else:
+            self.lvl += 1
+            self.user.update("level", self.lvl)
 
     def designate(self, inp, out):
         for ind in range(len(self.lvlnames)):

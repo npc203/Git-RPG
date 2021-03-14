@@ -11,7 +11,9 @@ class start(Level):
 
     @info(name="cd")
     def cd(out):
-        slow("Nice,Now we are set, Let's start by making a repository.\nTip:type git init")
+        slow(
+            "Nice,Now we are set, Let's start by making a repository.\nTip:type git init", "cyan",
+        )
         return 1
 
     @info(name="git init")
@@ -25,10 +27,11 @@ class start(Level):
             )
         run("mkdir somefolder")
         slow(
-            f"So we made a repository locally. I've added few stuff in the folder\nyou can check it by opening {path} in explorer"
+            f"\nSo we made a repository locally. I've added few stuff in the folder\nyou can check it by opening {path} in explorer",
+            "green",
         )
         print("Tip: You can add more files\n")
-        slow(f"Open {path} folder and have a look at the files and come back")
+        slow(f"Open {path} folder and have a look at the files and come back", "yellow")
         input("Press Enter to continue...")
         os.system("cls")
         slow("Let's check the status of the repo by typing: git status ...")

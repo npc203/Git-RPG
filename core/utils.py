@@ -3,15 +3,16 @@ import time, random
 import subprocess, os
 import webbrowser, shlex
 from collections import namedtuple
+from termcolor import colored, cprint
 
 base = os.path.dirname(os.path.realpath(__file__))
 response = namedtuple("Response", "status increments kwargs")
 
 
-def slow(t, speed=130, end="\n"):
+def slow(t, *args, speed=130, end="\n", **kwargs):
     for l in range(len(t)):
-        print(t[l], end="", flush=True)
-        time.sleep(5.0 / 1000)
+        cprint(t[l], *args, **kwargs, end="", flush=True)
+        time.sleep(5.0 / speed)
     print(end=end)
     time.sleep(0.7)
 
@@ -21,9 +22,9 @@ def run(cmd: str):
     return subprocess.run(cmd, stdout=subprocess.PIPE, shell=True).stdout.decode("utf-8")
 
 
-def show(img):
+def show(img, *args, **kwargs):
     with open(f"{base}\\assets\\{img}.txt", "r", encoding="utf-8") as f:
-        print(f.read())
+        print(colored(f.read(), *args, **kwargs))
     time.sleep(0.5)
 
 

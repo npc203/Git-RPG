@@ -39,10 +39,11 @@ def setup():
 def main():
     path = setup()
     os.chdir(path)
-    game = core.manager(*user.get("level, sublevel"))
+    game = core.manager(*user.get("level, sublevel"), user)
     game.start()
     slow(
-        "Welcome Traveller, I've changed the directory for you ,type cd to print the current working directory\n"
+        "Welcome Traveller, I've changed the directory for you ,type cd to print the current working directory\n",
+        "cyan",
     )
     while True:
         game.step()
