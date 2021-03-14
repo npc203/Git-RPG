@@ -36,6 +36,22 @@ def setup():
     return path
 
 
+def main():
+    path = setup()
+    os.chdir(path)
+    game = core.manager(*user.get("level, sublevel"))
+    game.start()
+    slow(
+        "Welcome Traveller, I've changed the directory for you ,type cd to print the current working directory\n"
+    )
+    while True:
+        game.step()
+
+
+if __name__ == "__main__":
+    main()
+
+
 """
 def find_inp(text):
     for i in range(len(lvl)):
@@ -43,24 +59,3 @@ def find_inp(text):
             if text == lvl[i][j]:
                 return i, j
 """
-
-
-def main():
-    path = setup()
-    os.chdir(path)
-    slow(
-        "Welcome Traveller, I've changed the directory for you ,type pwd to print the current working directory\n"
-    )
-    game = core.manager(*user.get("level, sublevel"))
-    game.start()
-    """
-    while True:
-        game.step()
-
-        for level, sublevel in game.start():
-            user.update({"level": level, "sublevel": sublevel})
-    """
-
-
-if __name__ == "__main__":
-    main()

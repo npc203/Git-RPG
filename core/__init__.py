@@ -1,12 +1,13 @@
-from .data import level_list as lvl
+from .data import level_list
 import os
-from .utils import run, slow
+from .utils import run, slow, show
 from importlib import import_module
 from inspect import isclass
 from pkgutil import iter_modules
+from types import FunctionType
 
 
-class Level:
+class Level(type):
     pass
 
 
@@ -14,8 +15,8 @@ class manager:
     def __init__(self, lvl, sublvl):
         self.lvl = lvl
         self.sublvl = sublvl
-
-    def start(self):
+        self.lvlnames = None
+        self.stack = None
         temp_list = []
         # This auto populates the trans with the levels present in level folder
         pkg_dir = os.path.join(os.path.dirname(__file__), "levels")
@@ -27,26 +28,57 @@ class manager:
                     temp_list.append(attr)
         self.trans = sorted(temp_list)
 
+    def start(self):
+        self.repopulate(self.lvl - 1)
+        show("intro")
+        tmp = tuple(level_list.keys())
+        for ind in range(len(tmp)):
+            print(f" {ind + 1} ." if ind < self.lvl else " \N{LOCK}", tmp[ind])
+        while True:
+            choice = int(input("\nSelect Level: "))
+            if self.lvl <= choice:
+                self.lvl = choice
+                break
+            else:
+                print("You need to complete the previous levels")
+
+    def repopulate(self, lvl):
+        self.lvlnames = []
+        self.stack = []
+        for key, val in self.trans[lvl].__dict__.items():
+            if hasattr(val, "decorator"):
+                self.lvlnames.append(val)
+                self.stack.append(0)
+
     def step(self):
-        inp = input(">")
-        if "exit" in inp:
-            slow(">>>All your unsaved progress will be lost, Do you want to quit?(y/n)")
-            prompt = input(">").lower()
-            if prompt in ("y", "yes"):
-                exit()
-        else:
-            out = run(inp)
-            print("\n>>> " + out)
-            return self.designate(inp, out)
+        if not self.check_lvl_completion():
+            inp = input(">")
+            if "exit" in inp:
+                slow(">>>All your unsaved progress will be lost, Do you want to quit?(y/n)")
+                prompt = input(">").lower()
+                if prompt in ("y", "yes"):
+                    exit()
+            else:
+                out = run(inp)
+                print("\n>>> " + out)
+                return self.designate(inp, out)
 
     def designate(self, inp, out):
-        if self.lvl - 1 >= 0:
-            lvl_obj = self.trans[self.lvl - 1]
-            lvl_obj
+        for ind in range(len(self.lvlnames)):
+            if inp.startswith(self.lvlnames[ind].name):
+                if self.stack[ind] != 1:
+                    self.lvlnames[ind](out)
+                    self.stack[ind] = 1
+                    break
+                break
+
+    def check_lvl_completion(self):
+        return all(self.stack)
 
 
 def info(**kwargs):
     def inner(func):
+        setattr(func, "decorator", "info")
         for thing in kwargs:
             setattr(func, thing, kwargs[thing])
         return func

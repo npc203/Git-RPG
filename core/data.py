@@ -1,6 +1,6 @@
-from collections import defaultdict
+from collections import OrderedDict
 
-level_list = defaultdict(None)
+level_list = OrderedDict()
 
 # Setting up/init Repo, setting up credentials and committing
 level_list["The Beginning"] = ["pwd", "git init", "status", "commit"]

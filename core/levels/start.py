@@ -1,6 +1,5 @@
 from .. import Level, info
 from ..utils import slow, run, show, response, base
-
 import os, time
 
 
@@ -10,13 +9,13 @@ class start(Level):
     def __lt__(self, other):
         return self.progress < other.progress
 
-    @info(name="pwd")
-    def pwd(self, out):
+    @info(name="cd")
+    def cd(out):
         slow("Nice,Now we are set, Let's start by making a repository.\nTip:type git init")
-        return
+        return 1
 
     @info(name="git init")
-    def init(self, out):
+    def init(out):
         path = os.getcwd()
         with open("main.txt", "w") as f:
             f.write("this is some random text file that should contain some code")
@@ -30,13 +29,13 @@ class start(Level):
         )
         print("Tip: You can add more files\n")
         slow(f"Open {path} folder and have a look at the files and come back")
-        input("Press Enter to continue")
+        input("Press Enter to continue...")
         os.system("cls")
         slow("Let's check the status of the repo by typing: git status ...")
-        stack["git init"] = 1
+        return 1
 
     @info(name="git status")
-    def status(self, out):
+    def status(out):
         input("Press Enter to continue...")
         slow("That's Your git status, feel free to use it anytime")
         slow(
@@ -57,26 +56,30 @@ class start(Level):
         input("Press Enter to continue...")
         slow('Now commit the changes by typing : git commit -m "This is my first commit" ')
         slow("Note: the -m is for message, all commits must have a relavant message")
+        return 1
 
     @info(name="git commit")
-    def commit(self, out):
+    def commit(out):
         if "nothing added to commit" in out:
             slow("Oopsie!  You need to stage your changes.. WHaaaa")
             input("Press enter to continue..")
             os.system("cls")
             slow("Git uses something called staging files before you commit SIKE!( ͡° ͜ʖ ͡°)")
             time.sleep(0.3)
-            slow("First Your changes must be staged before committing")
-            show("stage.txt")
+            slow("First Your changes must be staged before committing\n")
+            show("stage")
+            print()
             input("Press Enter to continue...")
             slow("To Stage your commits use : git add <files..>")
             slow("To stage everything do : git add .")
+            return 0
         else:
             slow("Sweet! you learnt how to commit changes!")
             slow("Now you can make changes and commit as much as u want!")
-            input("Press Enter to Continue..")
-            stack["commit"] = 1
+            input("Press Enter to continue..")
+            return 1
 
     @info(name="git add")
-    def stage(self, out):
+    def stage(out):
         slow("Alrighty Now That you've successfully Staged the Changes you can commit them now!")
+        return 1

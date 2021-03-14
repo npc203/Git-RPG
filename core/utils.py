@@ -22,7 +22,7 @@ def run(cmd: str):
 
 
 def show(img):
-    with open(f"{base}\\assets\\{img}.txt", "r") as f:
+    with open(f"{base}\\assets\\{img}.txt", "r", encoding="utf-8") as f:
         print(f.read())
     time.sleep(0.5)
 
