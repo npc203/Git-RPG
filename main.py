@@ -1,32 +1,62 @@
-import sys,os,subprocess
-from shutil import which
-import time,random,pickle
-import utils
-from utils import slow
-import first
-os.system('cls')
-with open('assets/intro.txt','r',encoding="utf-8") as f:
-    print(f.read())
+from tkinter import filedialog, Tk
+import os, sys
+import time
+from user import User
+import core
+from core.utils import slow
 
-if which("git") is not None:
-    print(utils.run(['git', '--version']))
-else:
-    print("Git not found! Kindly install before starting the game")
-    exit()
+sys.stderr = open("./err.txt", "w")
+
+root = Tk()
+root.withdraw()
+user = User()
 
 
-slow("Welcome to the git world, Start/Continue your git adventures!\n",160)
-user = utils.load()
+def setup():
+    """Sets up the folder for the test repo"""
+    path = user.get("path")
+    if not path:
+        while True:
+            slow("Create a new folder to make your repository:\n", "cyan")
+            path = filedialog.askdirectory(
+                parent=root,
+                initialdir=os.path.join(os.path.join(os.environ["USERPROFILE"]), "Desktop"),
+                title="Please select a directory",
+            )
+            if len(path) > 0:
+                if len(os.listdir(path)) == 0:
+                    slow("Your Directory is set to " + path + "\n", "cyan", speed=100)
+                    user.update({"path": path})
+                    time.sleep(2)
+                    break
+                else:
+                    print(
+                        "The current directory isn't empty, please select an empty directory for safety"
+                    )
+    return path
 
-for i in range(user[0]):
-    slow(f'{i+1}.'+levels[i])
-[print(f'{i+1}.LOCKED') for i in range(user[0],3)]
 
-options = {1:first}
-while True:
-    choice = int(input('>'))
-    if choice <= len(options):
-        os.system('cls')
-        options[choice].main()
-    else:
-        slow("Invalid Option, Try again")
+def main():
+    path = setup()
+    os.chdir(path)
+    game = core.manager(*user.get("level, sublevel"), user)
+    game.start()
+    slow(
+        "Welcome Traveller, I've changed the directory for you ,type cd to print the current working directory\n",
+        "cyan",
+    )
+    while True:
+        game.step()
+
+
+if __name__ == "__main__":
+    main()
+
+
+"""
+def find_inp(text):
+    for i in range(len(lvl)):
+        for j in range(len(lvl[i])):
+            if text == lvl[i][j]:
+                return i, j
+"""

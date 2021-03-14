@@ -71,8 +71,7 @@ class manager:
         for ind in range(len(self.lvlnames)):
             if inp.startswith(self.lvlnames[ind].name):
                 if self.stack[ind] != 1:
-                    self.lvlnames[ind](out)
-                    self.stack[ind] = 1
+                    self.stack[ind] = self.lvlnames[ind](out)
                     break
                 break
 

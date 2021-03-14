@@ -40,21 +40,23 @@ class start(Level):
     @info(name="git status")
     def status(out):
         input("Press Enter to continue...")
-        slow("That's Your git status, feel free to use it anytime")
+        slow("That's Your git status, feel free to use it anytime", "cyan")
         slow(
-            "you might notice that empty folder is not displayed\ncause its pointless to commit them"
+            "you might notice that empty folder is not displayed\ncause its pointless to commit them",
+            "cyan",
         )
         input("Press Enter to continue...")
         os.system("cls")
-        show("turtle")
+        show("turtle", "green")
         slow("OwO..The master turtle has decided to travel with you!LET'S GO!")
-        slow("Congrats you made a repository!,That was simple lol.\n")
+        slow("Congrats you made a repository!,That was simple lol.\n", "yellow")
         input("Press Enter to continue...")
-        slow("By Default the git repo is empty, Let's commit the changes we've made!")
+        slow("By Default the git repo is empty, Let's commit the changes we've made!", "cyan")
         slow(
             "A commit is a record of what files you have changed since the last time you made a commit.\n"
             "Git tracks these changes and you can revert back anytime.",
-            90,
+            "yellow",
+            speed=90,
         )
         input("Press Enter to continue...")
         slow('Now commit the changes by typing : git commit -m "This is my first commit" ')
@@ -64,12 +66,15 @@ class start(Level):
     @info(name="git commit")
     def commit(out):
         if "nothing added to commit" in out:
-            slow("Oopsie!  You need to stage your changes.. WHaaaa")
+            slow("Oopsie!  You need to stage your changes.. WHaaaa", "yellow")
             input("Press enter to continue..")
             os.system("cls")
-            slow("Git uses something called staging files before you commit SIKE!( ͡° ͜ʖ ͡°)")
+            slow(
+                "Git uses something called staging files before you commit SIKE!( ͡° ͜ʖ ͡°)",
+                "cyan",
+            )
             time.sleep(0.3)
-            slow("First Your changes must be staged before committing\n")
+            slow("First Your changes must be staged before committing\n", "cyan")
             show("stage")
             print()
             input("Press Enter to continue...")
@@ -77,12 +82,15 @@ class start(Level):
             slow("To stage everything do : git add .")
             return 0
         else:
-            slow("Sweet! you learnt how to commit changes!")
-            slow("Now you can make changes and commit as much as u want!")
+            slow("Sweet! you learnt how to commit changes!", "cyan")
+            slow("Now you can make changes and commit as much as u want!", "cyan")
             input("Press Enter to continue..")
             return 1
 
     @info(name="git add")
     def stage(out):
-        slow("Alrighty Now That you've successfully Staged the Changes you can commit them now!")
+        slow(
+            "Alrighty Now That you've successfully Staged the Changes you can commit them now!",
+            "cyan",
+        )
         return 1
